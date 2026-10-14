@@ -1,0 +1,47 @@
+
+============================================================
+EUROMILLÓN LAMA2C - ENTRENAMIENTO
+============================================================
+  Dispositivo: cuda
+  Modelo: GPT-2 tiny
+  Capas: 8
+  Heads: 8
+  Embedding: 512
+  Pasos: 20
+  Batch size: 32
+  Learning rate: 0.002
+  Secuencia: 128
+
+→ Cargando dataset...
+  Vocabulario: 45 caracteres únicos
+  Total de caracteres: 191317
+  Secuencias: 1494
+  Dataset cargado: 47 batches
+
+→ Creando modelo...
+  Config vocab_size: 45
+  Model output layer: Linear(in_features=512, out_features=45, bias=False)
+  Parámetros totales: 33,586,176
+  Parámetros entrenables: 33,586,176
+
+
+INICIANDO ENTRENAMIENTO
+============================================================
+/home/ignacia/euromillon-llama2c/llama2.c/model.py:148: UserWarning: Flash Efficient attention on Current AMD GPU is still experimental. Enable it with TORCH_ROCM_AOTRITON_ENABLE_EXPERIMENTAL=1. (Triggered internally at /pytorch/aten/src/ATen/native/transformers/hip/sdp_utils.cpp:323.)
+  output = torch.nn.functional.scaled_dot_product_attention(xq, xk, xv, attn_mask=None, dropout_p=self.dropout if self.training else 0.0, is_causal=True)
+/home/ignacia/euromillon-llama2c/llama2.c/model.py:148: UserWarning: Mem Efficient attention on Current AMD GPU is still experimental. Enable it with TORCH_ROCM_AOTRITON_ENABLE_EXPERIMENTAL=1. (Triggered internally at /pytorch/aten/src/ATen/native/transformers/hip/sdp_utils.cpp:383.)
+  output = torch.nn.functional.scaled_dot_product_attention(xq, xk, xv, attn_mask=None, dropout_p=self.dropout if self.training else 0.0, is_causal=True)
+  DEBUG: x_batch shape: torch.Size([32, 128])
+  DEBUG: logits shape: torch.Size([32, 1, 45])
+  DEBUG: y_batch shape: torch.Size([32, 128])
+  Paso 1/20 | Pérdida: 0.0385 | LR: 0.000400 | Velocidad: 1.0 steps/s | Tiempo: 101.0s
+
+============================================================
+GUARDANDO MODELO
+============================================================
+✓ Modelo guardado: models/euromillon-base-gpt2.pt
+  Tamaño: 128.2 MB
+  Parámetros: 33,586,176
+✓ Metadatos guardados: models/euromillon-base-gpt2.meta.json
+
+✓ ENTRENAMIENTO COMPLETADO

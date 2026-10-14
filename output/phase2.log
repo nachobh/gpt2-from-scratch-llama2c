@@ -1,0 +1,41 @@
+
+============================================================
+FINETUNE CON SWE-ZERO
+============================================================
+  Dispositivo: cuda
+  Modelo: Euromillón base
+  Dataset: SWE-Zero openhands-trajectories
+  Pasos: 50
+  Batch size: 8
+  Learning rate: 0.0005
+  Secuencia: 128
+
+Cargando modelo desde .safetensors: models/euromillon-base-gpt2.safetensors
+  Parámetros cargados: 33,586,176
+→ Cargando dataset SWE-Zero...
+Cargando dataset: data/SWE-Zero-openhands-trajectories
+  Muestras disponibles: 500
+  Textos útiles: 500
+  Vocabulario: 45 caracteres
+  Total de caracteres: 39734303
+  Secuencias: 310424
+  Dataset cargado: 38803 batches
+
+INICIANDO FINETUNE
+============================================================
+/home/ignacia/euromillon-llama2c/scripts/../llama2.c/model.py:148: UserWarning: Flash Efficient attention on Current AMD GPU is still experimental. Enable it with TORCH_ROCM_AOTRITON_ENABLE_EXPERIMENTAL=1. (Triggered internally at /pytorch/aten/src/ATen/native/transformers/hip/sdp_utils.cpp:323.)
+  output = torch.nn.functional.scaled_dot_product_attention(xq, xk, xv, attn_mask=None, dropout_p=self.dropout if self.training else 0.0, is_causal=True)
+/home/ignacia/euromillon-llama2c/scripts/../llama2.c/model.py:148: UserWarning: Mem Efficient attention on Current AMD GPU is still experimental. Enable it with TORCH_ROCM_AOTRITON_ENABLE_EXPERIMENTAL=1. (Triggered internally at /pytorch/aten/src/ATen/native/transformers/hip/sdp_utils.cpp:383.)
+  output = torch.nn.functional.scaled_dot_product_attention(xq, xk, xv, attn_mask=None, dropout_p=self.dropout if self.training else 0.0, is_causal=True)
+  Paso 1/50 | Pérdida: 3.9221 | LR: 0.000100 | Velocidad: 0.1 steps/s | Tiempo: 18.8s
+  Paso 50/50 | Pérdida: 1.7602 | LR: 0.000050 | Velocidad: 0.0 steps/s | Tiempo: 2497.7s
+
+============================================================
+GUARDANDO MODELO FINA-TUNEADO
+============================================================
+✓ .safetensors guardado: models/euromillon-swe-zero.safetensors
+  Tamaño: 128.2 MB
+  Parámetros: 33,586,176
+✓ Metadatos guardados: models/euromillon-swe-zero.safetensors.meta.json
+
+✓ FINETUNE COMPLETADO

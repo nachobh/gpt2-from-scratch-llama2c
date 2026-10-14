@@ -1,0 +1,60 @@
+
+============================================================
+EUROMILLÓN LAMA2C - ENTRENAMIENTO
+============================================================
+  Dispositivo: cuda
+  Modelo: GPT-2 tiny
+  Capas: 8
+  Heads: 8
+  Embedding: 512
+  Pasos: 500
+  Batch size: 32
+  Learning rate: 0.002
+  Secuencia: 128
+
+→ Cargando dataset...
+  Vocabulario: 45 caracteres únicos
+  Total de caracteres: 396074
+  Secuencias: 3094
+  Dataset cargado: 97 batches
+
+→ Creando modelo...
+  Config vocab_size: 45
+  Model output layer: Linear(in_features=512, out_features=45, bias=False)
+  Parámetros totales: 33,586,176
+  Parámetros entrenables: 33,586,176
+
+
+INICIANDO ENTRENAMIENTO
+============================================================
+  DEBUG: x_batch shape: torch.Size([32, 128])
+  DEBUG: logits shape: torch.Size([32, 1, 45])
+  DEBUG: y_batch shape: torch.Size([32, 128])
+  Paso 1/500 | Pérdida: 0.0416 | LR: 0.000040 | Velocidad: 1.3 steps/s | Tiempo: 78.4s
+  Paso 100/500 | Pérdida: 2.4435 | LR: 0.001946 | Velocidad: 0.0 steps/s | Tiempo: 10638.2s
+  DEBUG: x_batch shape: torch.Size([32, 128])
+  DEBUG: logits shape: torch.Size([32, 1, 45])
+  DEBUG: y_batch shape: torch.Size([32, 128])
+  Paso 200/500 | Pérdida: 2.0216 | LR: 0.001550 | Velocidad: 0.0 steps/s | Tiempo: 21468.2s
+  DEBUG: x_batch shape: torch.Size([32, 128])
+  DEBUG: logits shape: torch.Size([32, 1, 45])
+  DEBUG: y_batch shape: torch.Size([32, 128])
+  Paso 300/500 | Pérdida: 1.8194 | LR: 0.000944 | Velocidad: 0.0 steps/s | Tiempo: 32255.5s
+  DEBUG: x_batch shape: torch.Size([32, 128])
+  DEBUG: logits shape: torch.Size([32, 1, 45])
+  DEBUG: y_batch shape: torch.Size([32, 128])
+  Paso 400/500 | Pérdida: 1.6516 | LR: 0.000411 | Velocidad: 0.0 steps/s | Tiempo: 40872.0s
+  DEBUG: x_batch shape: torch.Size([32, 128])
+  DEBUG: logits shape: torch.Size([32, 1, 45])
+  DEBUG: y_batch shape: torch.Size([32, 128])
+  Paso 500/500 | Pérdida: 1.5273 | LR: 0.000200 | Velocidad: 0.0 steps/s | Tiempo: 49596.6s
+
+============================================================
+GUARDANDO MODELO
+============================================================
+✓ Modelo guardado: models/euromillon-v2-gpt2.pt
+  Tamaño: 128.2 MB
+  Parámetros: 33,586,176
+✓ Metadatos guardados: models/euromillon-v2-gpt2.meta.json
+
+✓ ENTRENAMIENTO COMPLETADO

@@ -1,0 +1,108 @@
+#!/usr/bin/env python3
+import os, sys, struct, json, torch
+
+LLAMA2C_DIR = os.path.join(os.path.dirname(__file__), '..', 'llama2.c')
+sys.path.insert(0, LLAMA2C_DIR)
+
+def main():
+    pt_path = "models/euromillon-swe-zero.pt"
+    bin_path = "models/euromillon-swe-zero.bin"
+    base_bin = "models/euromillon-base-gpt2"
+    
+    print(f"Convirtiendo {pt_path} -> {bin_path}")
+    
+    # Cargar modelo SWE-Zero
+    print("Cargando modelo SWE-Zero...")
+    checkpoint = torch.load(pt_path, map_location='cpu', weights_only=False)
+    state_dict = checkpoint.get('model_state', checkpoint.get('model', {}))
+    
+    # Leer estructura del binario original
+    print("Leyendo estructura del binario original...")
+    with open(base_bin, 'rb') as f:
+        header = f.read(5)
+        print(f"  Header: {header}")
+        
+        # Leer valores de config (cada 2 bytes)
+        all_values = []
+        for i in range(100):
+            b1, b2 = f.read(2)
+            val = struct.unpack('<H', bytes([b1, b2]))[0]
+            all_values.append(val)
+            if val == 0 and i > 2:
+                break
+        
+        print(f"  Valores: {all_values[:10]}")
+        
+        # Leer todos los tensores
+        print("Leyendo tensores...")
+        tensors_original = []
+        while True:
+            try:
+                name_len_bytes = f.read(2)
+                if len(name_len_bytes) < 2:
+                    break
+                name_len = struct.unpack('<H', name_len_bytes)[0]
+                
+                if name_len > 2000:
+                    break
+                
+                if name_len > 0 and name_len < 500:
+                    name = f.read(name_len).decode('utf-8').rstrip('\x00')
+                else:
+                    name = f.read(name_len).decode('latin-1').rstrip('\x00')
+                
+                d0 = struct.unpack('<H', f.read(2))[0]
+                d1 = struct.unpack('<H', f.read(2))[0]
+                d2 = struct.unpack('<H', f.read(2))[0]
+                d3 = struct.unpack('<H', f.read(2))[0]
+                
+                if d0 and d1 and d2 and d3:
+                    data_len = d0 * d1 * d2 * d3 * 4
+                elif d0 and d1:
+                    data_len = d0 * d1 * 4
+                else:
+                    data_len = 4
+                
+                tensor_data = f.read(data_len)
+                
+                if name:
+                    print(f"  Tensor: {name} dims=({d0},{d1},{d2},{d3}) size={data_len/(1024*1024):.1f}MB")
+                    tensors_original.append({
+                        'name': name, 'dims': (d0, d1, d2, d3),
+                        'data': tensor_data, 'size': data_len
+                    })
+            except Exception as e:
+                print(f"  Fin: {e}")
+                break
+        
+        total = len(tensors_original)
+        print(f"  Total tensores: {total}")
+    
+    # Generar nuevo binario
+    print(f"Generando: {bin_path}")
+    with open(bin_path, 'wb') as f:
+        f.write(header)
+        for val in all_values:
+            f.write(struct.pack('<H', val))
+        
+        for tensor_info in tensors_original:
+            name = tensor_info['name']
+            dims = tensor_info['dims']
+            name_bytes = name.encode('utf-8')
+            f.write(struct.pack('<H', len(name_bytes)))
+            f.write(name_bytes)
+            for d in dims:
+                f.write(struct.pack('<H', d))
+            
+            if name in state_dict:
+                tensor_float32 = state_dict[name].float()
+                f.write(tensor_float32.cpu().numpy().tobytes('C'))
+            else:
+                f.write(tensor_info['data'])
+    
+    size = os.path.getsize(bin_path)
+    print(f"  Binario: {size / (1024*1024):.1f} MB")
+    print("  Listo!")
+
+if __name__ == "__main__":
+    main()

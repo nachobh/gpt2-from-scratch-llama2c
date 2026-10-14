@@ -1,0 +1,7 @@
+models/
+llama2.c/
+data/
+*.gguf
+*.pt
+*.safetensors
+__pycache__/

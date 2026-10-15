@@ -4,7 +4,8 @@ Entrenamiento de modelo GPT-2 tiny con llama2.c model.py
 Entrena un modelo desde cero con texto de Euromillón.
 
 USO:
-    python3 train.py <dataset.txt> <output.bin> [OPTIONS]
+    python3 train.py <dataset.txt> <output> [OPTIONS]
+    (guarda <output>.pt y <output>.meta.json; NO un .bin)
     
 OPCIONES:
     --n-layer N       Número de capas (default: 8)
@@ -328,7 +329,7 @@ def train(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Entrenar modelo GPT-2 tiny")
     parser.add_argument("dataset", help="Ruta al archivo de texto de entrenamiento")
-    parser.add_argument("output", help="Ruta de salida del modelo (.bin)")
+    parser.add_argument("output", help="Ruta base de salida (se guardan .pt y .meta.json)")
     parser.add_argument("--n-layer", type=int, default=8, help="Número de capas")
     parser.add_argument("--n-head", type=int, default=8, help="Número de heads")
     parser.add_argument("--n-embd", type=int, default=512, help="Tamaño embedding")

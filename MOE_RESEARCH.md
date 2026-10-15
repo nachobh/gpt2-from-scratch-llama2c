@@ -55,7 +55,7 @@ Un modelo **Mixture of Experts** (MoE) es una arquitectura donde cada capa conti
 ```python
 # Arquitectura propuesta:
 # - 8 capas de transformer
-# - Cada capa con 4 expertos (en lugar de 1 FFN)
+# - Cada capa con 8 expertos (en lugar de 1 FFN)
 # - Router selecciona 1 experto por token
 # - 8 expertos × 4.2M parámetros = 33.6M total
 # - Pero solo 4.2M activos por token (como GPT-2 tiny normal)
@@ -146,7 +146,7 @@ class MoEFeedForward(nn.Module):
 
 | Característica | MoE | Denso (GPT-2 tiny) |
 |----------------|-----|-------------------|
-| Parámetros totales | 33.6M (4×8 expertos) | 33.6M (1 FFN) |
+| Parámetros totales | 33.6M (8 expertos) | 33.6M (1 FFN) |
 | Activos por token | 4.2M | 33.6M |
 | Latencia inferencia | ~igual | ~igual |
 | Capacidad total | 33.6M | 33.6M |

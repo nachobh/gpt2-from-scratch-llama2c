@@ -9,6 +9,13 @@
 # SWE-Zero contiene trayectorias de resolución de problemas,
 # lo que ayuda al modelo a generar combinaciones más "lógicas".
 #
+# ⚠️ CONFIG PLANIFICADA vs REALIDAD: este script configura 5000 steps,
+# batch 16, seq 256 y llama2.c ./run sobre un .bin. Lo que REALMENTE se
+# ejecutó (ver output/phase2.log) fue un finetune de 50 steps, batch 8,
+# seq 128, cargando el modelo base desde .safetensors
+# (models/euromillon-base-gpt2.safetensors) vía scripts/finetune_swe_zero.py.
+# Este script queda como config planificada, no reproducida.
+#
 # ═══════════════════════════════════════════════════════════════
 
 set -e

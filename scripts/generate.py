@@ -11,7 +11,8 @@ import glob
 # Configuración
 MODEL_SIZE = "tiny"
 OUTPUT_DIR = "models"
-GUF_NAME = f"euromillon-gpt2-{MODEL_SIZE}.gguf"
+# El pipeline real produce euromillon-v2-gpt2.gguf (no euromillon-gpt2-tiny.gguf)
+GUF_NAME = "euromillon-v2-gpt2.gguf"
 NUM_COMBINACIONES = int(sys.argv[1]) if len(sys.argv) > 1 else 5
 
 # Verificar modelo

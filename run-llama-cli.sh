@@ -27,11 +27,12 @@ echo "Prompt: $PROMPT"
 echo ""
 
 # Run with llama-cli (llama.cpp)
+# -t = number of THREADS (not temperature); temperature is --temp
 ~/llama.cpp/build/bin/llama-cli \
   -m "$MODEL_PATH" \
   -n "$PREDICTS" \
   -c 2048 \
-  -t "$TEMPERATURE" \
+  -t 4 \
   --temp "$TEMPERATURE" \
   -s 42 \
   -p "$PROMPT"

@@ -12,7 +12,7 @@ echo "║  EUROMILLON MODEL COMPARISON (V1 vs V2)                  ║"
 echo "╚═══════════════════════════════════════════════════════════╝"
 echo ""
 echo "V1: 3,159 samples, 2000 steps, 65 MB GGUF (original)"
-echo "V2: 11,159 samples, 500 steps, 129 MB GGUF (merged)"
+echo "V2: 11,159 samples, 500 steps, 128 MB GGUF (merged)"
 echo ""
 
 # Test prompts

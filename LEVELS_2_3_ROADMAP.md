@@ -96,6 +96,9 @@ curl http://127.0.0.1:8084/v1/chat/completions \
 
 | Nivel | Datos | Entrenamiento | Resultado |
 |-------|-------|---------------|-----------|
-| 1 | 11,159 líneas | 500 pasos (1.5h) | Combinaciones |
-| 2 | 10,000+ líneas | 2,000 pasos (6h) | Combinaciones + explicaciones |
-| 3 | 5,000+ líneas | 5,000 pasos (15h) | Análisis + estadísticas |
+| 1 | 11,159 líneas | 500 pasos (~13.8h medido) | Combinaciones |
+| 2 | 10,000+ líneas | 2,000 pasos (~55h a ritmo medido) | Combinaciones + explicaciones |
+| 3 | 5,000+ líneas | 5,000 pasos (~140h a ritmo medido) | Análisis + estadísticas |
+
+> Corrección: la estimación original de 1.5h para 500 pasos era optimista.
+> Medido en `output/phase1-v2.log`: 500 pasos = 49,596s ≈ 13.8h (~99s/paso).

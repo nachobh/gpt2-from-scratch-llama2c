@@ -4,6 +4,11 @@ PASO 2b: Fusionar datos JSONL (8000 samples) con el dataset existente.
 
 Convierte los 8000 samples de euromillon-first-approach al formato
 de texto plano y los mezcla con los 3537 líneas existentes.
+
+NOTA sobre la cifra: data/euromillon_real.txt tiene 3,537 líneas FÍSICAS,
+pero solo 3,159 no vacías; este script filtra las vacías, así que el merge
+real aportó 3,159 muestras (3,159 + 8,000 = 11,159, la cifra que citan
+compare-models.sh / run-comparison.sh / LEVELS_2_3_ROADMAP.md).
 """
 
 import json
